@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
+}
+
+.my-table {
+  max-width: 100%;
+  background-color: #fff;
+  border-collapse: collapse;
+  text-align: center;
+}
+.my-table th, .my-table td {
+  padding: 8px;
+}
+
+.container {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: darkslategrey;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.topnav a:hover {
+  color: black;
+  font-weight: bolder;
+}
+
+.leftcolumn {   
+  float: left;
+  width: 15%;
+}
+
+.rightcolumn {
+  float: right;
+  width: 85%;
+  background-color: #f1f1f1;
+  padding-left: 15px;
+}
+
+.card {
+  background-color: ghostwhite;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  border-radius: 15px;
+}
+
+.card_exit {
+  background-color: ghostwhite;
+  padding: 1px;
+  margin-top: 10px;
+  border-radius: 15px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  color: darkslategray;
+  margin-top: 100px;
+}
+
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .topnav a {
+    float: none;
+    width: 100%;
+  }
+}

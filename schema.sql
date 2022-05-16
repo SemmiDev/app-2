@@ -106,8 +106,6 @@ CREATE TABLE IF NOT EXISTS users (
     FOREIGN KEY (id_role) REFERENCES roles(id_role) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-INSERT INTO users VALUES (1,'admin@admin.unri.ac.id', '$2y$10$o9O0.yM5fq3cZar4w8qMyOnOmzUSSp18rxTRC3Gw7aTLaP2G1zI/K',3);
-
 CREATE TABLE IF NOT EXISTS mahasiswa (
     id_mahasiswa INT(11) NOT NULL AUTO_INCREMENT,
     nim VARCHAR(10) UNIQUE NOT NULL,
@@ -156,6 +154,7 @@ CREATE TABLE IF NOT EXISTS matakuliah (
     nama VARCHAR(50) NOT NULL,
     kode VARCHAR(50) UNIQUE NOT NULL,
     sks INT(11) NOT NULL,
+    slot INT(11) DEFAULT 50,
     semester INT(2) NOT NULL,
     id_dosen_pengampu INT(11) DEFAULT NULL,
     id_jurusan INT(11) DEFAULT NULL,
@@ -163,6 +162,8 @@ CREATE TABLE IF NOT EXISTS matakuliah (
     FOREIGN KEY (id_dosen_pengampu) REFERENCES dosen(id_dosen) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (id_jurusan) REFERENCES jurusan(id_jurusan) ON DELETE SET NULL ON UPDATE CASCADE
 );
+
+ALTER TABLE matakuliah ADD COLUMN sisa_slot INT(11) DEFAULT 50;
 
 INSERT INTO matakuliah (id_matakuliah, nama, kode, sks, semester, id_dosen_pengampu, id_jurusan)
 VALUES (1, 'Pemrograman Web', 'PWL', '3', '1', 1, 1);
@@ -184,7 +185,7 @@ CREATE TABLE IF NOT EXISTS enroll_matakuliah (
     id_mahasiswa INT(11) DEFAULT NULL,
     id_matakuliah INT(11) DEFAULT NULL,
     semester INT(2) NOT NULL,
-    nilai VARCHAR(1) DEFAULT NULL,
+    nilai VARCHAR(10) DEFAULT NULL,
     PRIMARY KEY (id_enroll_matakuliah),
     FOREIGN KEY (id_mahasiswa) REFERENCES mahasiswa(id_mahasiswa) ON DELETE SET NULL ON UPDATE CASCADE,
     FOREIGN KEY (id_matakuliah) REFERENCES matakuliah(id_matakuliah) ON DELETE SET NULL ON UPDATE CASCADE

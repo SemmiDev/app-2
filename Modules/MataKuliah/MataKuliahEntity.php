@@ -7,6 +7,8 @@ class MataKuliahEntity {
     public $nama;
     public $kode;
     public $sks;
+    public $slot;
+    public $sisaSlot;
     public $semester;
     public $idDosenPengampu;
     public $idJurusan;
@@ -17,6 +19,8 @@ class MataKuliahEntityDetails {
     public $nama;
     public $kode;
     public $sks;
+    public $slot;
+    public $sisaSlot;
     public $semester;
 
     public $idDosenPengampu;
@@ -43,6 +47,8 @@ class MataKuliahEntityDetails {
         $this->id = $mataKuliah->id;
         $this->nama = $mataKuliah->nama;
         $this->kode = $mataKuliah->kode;
+        $this->slot = $mataKuliah->slot;
+        $this->sisaSlot = $mataKuliah->sisaSlot;
         $this->sks = $mataKuliah->sks;
         $this->semester = $mataKuliah->semester;
     }

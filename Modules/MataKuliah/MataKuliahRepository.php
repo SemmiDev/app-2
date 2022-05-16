@@ -29,17 +29,28 @@ class MataKuliahRepository {
         return $result;
     }
 
+    public function updateSlot($id, $act) 
+    {
+        if ($act == 'add') {
+            $statement = $this->connection->prepare("UPDATE matakuliah SET slot = slot + 1 WHERE id_matakuliah = ?");
+            $statement->execute([$id]);
+        } else if ($act == 'sub') {
+            $statement = $this->connection->prepare("UPDATE matakuliah SET slot = slot - 1 WHERE id_matakuliah = ?");
+            $statement->execute([$id]);
+        }          
+    }
+
     public function save(MataKuliahEntity $matkul): MataKuliahEntity
     {
-        $statement = $this->connection->prepare("INSERT INTO matakuliah(nama, kode, sks, semester, id_dosen_pengampu, id_jurusan) VALUES (?,?,?,?,?,?)");
-        $statement->execute([$matkul->nama, $matkul->kode, $matkul->sks, $matkul->semester, $matkul->idDosenPengampu, $matkul->idJurusan]);
+        $statement = $this->connection->prepare("INSERT INTO matakuliah(nama, kode, sks, slot, sisa_slot, semester, id_dosen_pengampu, id_jurusan) VALUES (?,?,?,?,?,?,?,?)");
+        $statement->execute([$matkul->nama, $matkul->kode, $matkul->sks,  $matkul->slot, $matkul->sisaSlot, $matkul->semester, $matkul->idDosenPengampu, $matkul->idJurusan]);
         return $matkul;
     }
 
     public function update(MataKuliahEntity $matkul): MataKuliahEntity
     {
-        $statement = $this->connection->prepare("UPDATE matakuliah SET nama = ?, kode = ?, sks = ?, semester = ?, id_dosen_pengampu = ?, id_jurusan = ? WHERE id_matakuliah = ?");
-        $statement->execute([$matkul->nama, $matkul->kode, $matkul->sks, $matkul->semester, $matkul->idDosenPengampu, $matkul->idJurusan, $matkul->id]);
+        $statement = $this->connection->prepare("UPDATE matakuliah SET nama = ?, kode = ?, sks = ?, slot=?, sisa_slot=?, semester = ?, id_dosen_pengampu = ?, id_jurusan = ? WHERE id_matakuliah = ?");
+        $statement->execute([$matkul->nama, $matkul->kode, $matkul->sks, $matkul->slot, $matkul->sisaSlot, $matkul->semester, $matkul->idDosenPengampu, $matkul->idJurusan, $matkul->id]);
         return $matkul;
     }
 
@@ -54,6 +65,8 @@ class MataKuliahRepository {
             $matkul->nama = $row['nama'];
             $matkul->kode = $row['kode'];
             $matkul->sks = $row['sks'];
+            $matkul->slot = $row['slot'];
+            $matkul->sisaSlot = $row['sisa_slot'];
             $matkul->semester = $row['semester'];
             $matkul->idDosenPengampu = $row['id_dosen_pengampu'];
             $matkul->idJurusan = $row['id_jurusan'];
@@ -73,6 +86,8 @@ class MataKuliahRepository {
                 $matkul->nama = $row['nama'];
                 $matkul->kode = $row['kode'];
                 $matkul->sks = $row['sks'];
+                $matkul->slot = $row['slot'];
+                $matkul->sisaSlot = $row['sisa_slot'];
                 $matkul->semester = $row['semester'];
                 $matkul->idDosenPengampu = $row['id_dosen_pengampu'];
                 $matkul->idJurusan = $row['id_jurusan'];

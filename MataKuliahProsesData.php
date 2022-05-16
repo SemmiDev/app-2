@@ -12,6 +12,8 @@ if ($act == 'create') {
     $namaMatkul = $_POST['nama_mata_kuliah'];
     $kode = $_POST['kode_mata_kuliah'];
     $sks = $_POST['sks'];
+    $slot = $_POST['slot'];
+    $sisaSlot = $_POST['sisa_slot'];
     $semester = $_POST['semester'];
     $idDosenPengampu = $_POST['dosen_pengampu'];
     $idJurusan = $_POST['jurusan'];
@@ -20,6 +22,8 @@ if ($act == 'create') {
     $req->nama = $namaMatkul;
     $req->kode = $kode;
     $req->sks = $sks;
+    $req->slot = $slot;
+    $req->sisaSlot = $sisaSlot;
     $req->semester = $semester;
     $req->idDosenPengampu = $idDosenPengampu;
     $req->idJurusan = $idJurusan;
@@ -56,6 +60,8 @@ if ($act == 'update') {
     $namaMatkul = $_POST['nama_mata_kuliah'];
     $kode = $_POST['kode_mata_kuliah'];
     $sks = $_POST['sks'];
+    $slot = $_POST['slot'];
+    $sisaSlot = $_POST['sisa_slot'];
     $semester = $_POST['semester'];
     $idDosenPengampu = $_POST['dosen_pengampu'];
     $idJurusan = $_POST['jurusan'];
@@ -65,6 +71,8 @@ if ($act == 'update') {
     $req->nama = $namaMatkul;
     $req->kode = $kode;
     $req->sks = $sks;
+    $req->slot = $slot;
+    $req->sisaSlot = $sisaSlot;
     $req->semester = $semester;
     $req->idDosenPengampu = $idDosenPengampu;
     $req->idJurusan = $idJurusan;

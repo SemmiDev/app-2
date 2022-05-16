@@ -86,22 +86,24 @@ $mataKuliahRepository = new MataKuliahRepository(Database::getPDOConnection());
 $mengajarRepository = new MengajarRepository(Database::getPDOConnection());
 $prodiRepository = new ProdiRepository(Database::getPDOConnection());
 $enrollMataKuliahRepository = new EnrollMataKuliahRepository(Database::getPDOConnection());
-$roleRepository = new RoleRepository(Database::getPDOConnection()); 
+$roleRepository = new RoleRepository(Database::getPDOConnection());
 $userRepository = new UserRepository(Database::getPDOConnection());
 
 $fakultasService = new FakultasService($fakultasRepository, $dosenRepository, $jurusanRepository);
 $roleService = new RoleService($roleRepository);
 $userService = new UserService($userRepository, $roleRepository);
 $jurusanService = new JurusanService(
-    $jurusanRepository, 
+    $jurusanRepository,
     $fakultasRepository,
-    $dosenRepository);
+    $dosenRepository
+);
 $dosenService = new DosenService($dosenRepository);
 $mahasiswaService = new MahasiswaService(
-    $mahasiswaRepository, 
+    $mahasiswaRepository,
     $prodiRepository,
-    $jurusanRepository, 
-    $dosenRepository);
+    $jurusanRepository,
+    $dosenRepository
+);
 $ruanganService = new RuanganService($ruanganRepository);
 $mataKuliahService = new MataKuliahService($mataKuliahRepository, $dosenRepository, $jurusanRepository);
 $mengajarService = new MengajarService(
@@ -133,36 +135,50 @@ $sessionService = new SessionService($sessionRepository, $userRepository, $roleR
  *                                                          Last Modified: Thursday, May 12  *
 \*********************************************************************************************/
 
-function mustSectionAuthorizedInRoles(...$roles) : bool {
+function mustSectionAuthorizedInRoles(...$roles): bool
+{
     global $sessionService;
-    $sessDetails = $sessionService->current();
-    if (is_null($sessDetails)) {header('Location: Login.php');}
-    $num = 0;
-    foreach ($roles as $role) { if ($role == $sessDetails->role) { $num += 1; }}
-    if ($num == 0) { return false;} return true;
-}
-
-function mustLogin() {
-    global $sessionService;
-    $sessDetails = $sessionService->current();
-    if (is_null($sessDetails)) {header('Location: Login.php');}     
-}
-
-function mustFullAuthorizedInRoles(...$roles) {
-    global $sessionService;
-
     $sessDetails = $sessionService->current();
     if (is_null($sessDetails)) {
         header('Location: Login.php');
     }
-    
     $num = 0;
     foreach ($roles as $role) {
         if ($role == $sessDetails->role) {
             $num += 1;
         }
     }
-    
+    if ($num == 0) {
+        return false;
+    }
+    return true;
+}
+
+function mustLogin()
+{
+    global $sessionService;
+    $sessDetails = $sessionService->current();
+    if (is_null($sessDetails)) {
+        header('Location: Login.php');
+    }
+}
+
+function mustFullAuthorizedInRoles(...$roles)
+{
+    global $sessionService;
+
+    $sessDetails = $sessionService->current();
+    if (is_null($sessDetails)) {
+        header('Location: Login.php');
+    }
+
+    $num = 0;
+    foreach ($roles as $role) {
+        if ($role == $sessDetails->role) {
+            $num += 1;
+        }
+    }
+
     if ($num == 0) {
         header('Location: AccessDenied.php');
     }

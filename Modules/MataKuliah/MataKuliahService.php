@@ -42,12 +42,22 @@ class MataKuliahService
         return $listDosenPengajar;
     }
 
+    public function updateSlot($id, $act) {
+        try {
+            Database::beginTransaction();
+            $this->mataKuliahRepository->updateSlot($id, $act);
+            Database::commitTransaction();
+        } catch (\Exception $exception) {
+            Database::rollbackTransaction();
+            throw $exception;
+        }
+    }
+
     public function create(MataKuliahEntity $req): MataKuliahEntity
     {
         try {
             Database::beginTransaction();
             $this->mataKuliahRepository->save($req);
-
             Database::commitTransaction();
             return $req;
         } catch (\Exception $exception) {

@@ -15,6 +15,18 @@ if ($act == 'create') {
     $nilai = $_POST['nilai'];
 
     try {
+        // get data mata kuliah by id
+        $dataMataKuliah = $mataKuliahService->findById($idMatkul);
+        if ($dataMataKuliah->sisaSlot == 0) {
+            $msg = "Mata Kuliah sudah penuh";
+            $msg = "Gagal menambahkan data : $msg";
+            setcookie('error', $msg, time() + 5);
+            header('Location: EnrollMataKuliah.php');
+        }
+
+        // kurangi slot mata kuliah
+        $mataKuliahService->updateSlot($idMatkul, 'sub');
+
         $req = new EnrollMataKuliahEntity();
         $req->idMahasiswa = $idMhs;
         $req->idMataKuliah = $idMatkul;
@@ -23,6 +35,7 @@ if ($act == 'create') {
 
         $enrollMataKuliahService->create($req);
         $msg = "Mata Kuliah berhasil di enroll";
+
         setcookie('success', $msg, time() + 5);
         header('Location: EnrollMataKuliah.php');
     } catch (\Exception $exception) {
@@ -34,8 +47,11 @@ if ($act == 'create') {
 
 if ($act == 'delete') {
     $id = $_GET['id'];
+    $idMatkul = $enrollMataKuliahService->findById($id)->idMataKuliah;
     try {
         $enrollMataKuliahService->delete($id);
+        // tambah slot mata kuliah
+        $mataKuliahService->updateSlot($idMatkul, 'add');
         $msg = "Mata Kuliah berhasil di unenroll";
         setcookie('success', $msg, time() + 5);
         header('Location: EnrollMataKuliah.php');

@@ -171,7 +171,7 @@ function mustFullAuthorizedInRoles(...$roles)
     if (is_null($sessDetails)) {
         header('Location: Login.php');
     }
-
+    
     $num = 0;
     foreach ($roles as $role) {
         if ($role == $sessDetails->role) {

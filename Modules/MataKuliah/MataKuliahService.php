@@ -108,6 +108,20 @@ class MataKuliahService
         }
         return $listMataKuliah;
     }
+    
+    public function findAllByJurusanId($jurusanId)
+    {
+        $mataKuliah = $this->mataKuliahRepository->findAllByJurusanId($jurusanId);
+        $listMataKuliah = [];
+        foreach ($mataKuliah as $matkul) {
+            $detail = new MataKuliahEntityDetails(
+            $matkul,
+            $this->dosenRepository->findById($matkul->idDosenPengampu),
+            $this->jurusanRepository->findById($matkul->idJurusan));
+            array_push($listMataKuliah, $detail);
+        }
+        return $listMataKuliah;
+    }
 
     public function findById($id): ?MataKuliahEntity
     {

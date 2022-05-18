@@ -74,6 +74,26 @@ class MataKuliahRepository {
         }, $result);
     }
 
+    public function findAllByJurusanId($jurusanId): array
+    {
+        $statement = $this->connection->prepare("SELECT * FROM matakuliah WHERE id_jurusan = ?");
+        $statement->execute([$jurusanId]);
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        return array_map(function ($row) {
+            $matkul = new MataKuliahEntity();
+            $matkul->id = $row['id_matakuliah'];
+            $matkul->nama = $row['nama'];
+            $matkul->kode = $row['kode'];
+            $matkul->sks = $row['sks'];
+            $matkul->slot = $row['slot'];
+            $matkul->sisaSlot = $row['sisa_slot'];
+            $matkul->semester = $row['semester'];
+            $matkul->idDosenPengampu = $row['id_dosen_pengampu'];
+            $matkul->idJurusan = $row['id_jurusan'];
+            return $matkul;
+        }, $result);
+    }
+
     public function findById($id): ? MataKuliahEntity
     {
         $statement = $this->connection->prepare("SELECT * FROM matakuliah WHERE id_matakuliah = ?");

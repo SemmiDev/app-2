@@ -48,6 +48,8 @@
                                 </li>
                                 <li style="list-style: none; padding: 2px;"><a href="M_MahasiswaDetails.php" style="text-decoration: none; color: darkslateblue; font-weight: bold;">
                                                 Biodata</a></li>
+                                <li style="list-style: none; padding: 2px;"><a href="M_EnrollMataKuliah.php" style="text-decoration: none; color: darkslateblue; font-weight: bold;">
+                                                Mata Kuliah</a></li>
                         </ul>
                 </div>
 

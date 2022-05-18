@@ -10,7 +10,7 @@ if (isset($_GET['page_id'])) {
     $pageID = $_GET['page_id'];
     $limit = 25;
     $offset = ($pageID - 1) * $limit;
-    $dataMhs = $mahasiswaService->findByPaginate($limit,$offset);
+    $dataMhs = $mahasiswaService->findByPaginate($limit, $offset);
 }else {
     $limit = 25;
     $offset = ($pageID - 1) * $limit;

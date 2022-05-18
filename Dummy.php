@@ -1,7 +1,6 @@
 <?php
 
 use Modules\User\Entity\UserEntity;
-use Modules\User\Service\UserService;
 
 require_once './App.php';
 

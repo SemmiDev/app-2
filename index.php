@@ -14,14 +14,16 @@
 
                 <?php 
                     require_once './App.php';
-                    $admin = mustSectionAuthorizedInRoles('admin');    
-                    $mahasiswa = mustSectionAuthorizedInRoles('mahasiswa');    
-                    $dosen = mustSectionAuthorizedInRoles('dosen');
-                    $email = $sessionService->current()->email;    
-                    $email = substr($email, 0, strpos($email, '@'));
+                    
+                    $authorized = mustSectionAuthorizedInRoles('admin', 'mahasiswa', 'dosen');    
+                    
+                    $email = $sessionService->current()->email;         // get current user email
+                    $email = substr($email, 0, strpos($email, '@'));    // get string before @
+                    $email = explode('.', $email);                      // split string by .
+                    $email = ucfirst($email[0]);                        // uppercase first character
                ?>
 
-                <?php if ($admin or $mahasiswa or $dosen) { ?>
+                <?php if ($authorized) { ?>
                     <p>Selamat Datang  <b> <?= $email ?></b> </p>
                 <?php } ?>
 

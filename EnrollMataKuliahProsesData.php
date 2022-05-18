@@ -47,6 +47,46 @@ if ($act == 'create') {
     }
 }
 
+
+if ($act == 'create2') {
+    $idMhs = $_POST['id_mahasiswa'];
+    $idMatkul = $_POST['id_mata_kuliah'];
+    $semester = $_POST['semester'];
+    $tahunAjaran = $_POST['tahun_ajaran'];
+    $nilai = $_POST['nilai'] ?? "";
+
+    try {
+        // get data mata kuliah by id
+        $dataMataKuliah = $mataKuliahService->findById($idMatkul);
+        if ($dataMataKuliah->sisaSlot <= 0) {
+            $msg = "Mata Kuliah sudah penuh";
+            $msg = "Gagal menambahkan data : $msg";
+            setcookie('error', $msg, time() + 5);
+            header('Location: M_EnrollMataKuliah.php');
+        }
+
+        // kurangi slot mata kuliah
+        $mataKuliahService->updateSlot($idMatkul, 'sub');
+
+        $req = new EnrollMataKuliahEntity();
+        $req->idMahasiswa = $idMhs;
+        $req->idMataKuliah = $idMatkul;
+        $req->semester = $semester;
+        $req->tahunAjaran = $tahunAjaran;
+        $req->nilai = $nilai;
+
+        $enrollMataKuliahService->create($req);
+        $msg = "Mata Kuliah berhasil di enroll";
+
+        setcookie('success', $msg, time() + 5);
+        header('Location: M_EnrollMataKuliah.php');
+    } catch (\Exception $exception) {
+        $msg = "Gagal menambahkan data $exception";
+        setcookie('error', $msg, time() + 5);
+        header('Location: M_EnrollMataKuliah.php');
+    }
+}
+
 if ($act == 'delete') {
     $id = $_GET['id'];
     $idMatkul = $enrollMataKuliahService->findById($id)->idMataKuliah;
@@ -61,6 +101,23 @@ if ($act == 'delete') {
         $msg = "Gagal menghapus data $exception";
         setcookie('error', $msg, time() + 5);
         header('Location: EnrollMataKuliah.php');
+    }
+}
+
+if ($act == 'delete2') {
+    $id = $_GET['id'];
+    $idMatkul = $enrollMataKuliahService->findById($id)->idMataKuliah;
+    try {
+        $enrollMataKuliahService->delete($id);
+        // tambah slot mata kuliah
+        $mataKuliahService->updateSlot($idMatkul, 'add');
+        $msg = "Mata Kuliah berhasil di unenroll";
+        setcookie('success', $msg, time() + 5);
+        header('Location: M_EnrollMataKuliah.php');
+    } catch (\Exception $exception) {
+        $msg = "Gagal menghapus data $exception";
+        setcookie('error', $msg, time() + 5);
+        header('Location: M_EnrollMataKuliah.php');
     }
 }
 

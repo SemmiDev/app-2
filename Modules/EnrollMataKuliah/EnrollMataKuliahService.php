@@ -79,6 +79,21 @@ class EnrollMataKuliahService
         return $enrollDetails;
     }
 
+    public function findAllMahasiswa($email): array
+    {
+        $dataEnroll = $this->enrollMataKuliahRepository->findAll();
+        $enrollDetails = [];
+        foreach ($dataEnroll as $enroll) {
+            $m = $this->mahasiswaRepository->findById($enroll->idMahasiswa);
+            if ($m->email == $email) {
+                $enrollDetails[] = new EnrollMataKuliahEntityDetails(
+                    $enroll,$m,
+                    $this->mataKuliahRepository->findById($enroll->idMataKuliah));
+            }
+        }
+        return $enrollDetails;
+    }
+
     public function findById(int $id): ? EnrollMataKuliahEntityDetails
     {
         try {

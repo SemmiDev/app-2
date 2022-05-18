@@ -1,15 +1,16 @@
 <?php
 require_once './App.php';
 mustLogin();
-mustFullAuthorizedInRoles("admin");
-$dataEnrollMataKuliah = $enrollMataKuliahService->findAll();
+mustFullAuthorizedInRoles("mahasiswa");
+$current = $sessionService->current();
+$dataEnrollMataKuliah = $enrollMataKuliahService->findAllMahasiswa($current->email);
 ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Enroll Mata Kuliah</title>
+    <title>Data Enroll Mata Kuliah</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -51,7 +52,7 @@ $dataEnrollMataKuliah = $enrollMataKuliahService->findAll();
                 </script>
                 <div>
                     <div>
-                        <a href="./EnrollMataKuliahPageTambahData.php">
+                        <a href="./M_TambahEnrollMataKuliah.php">
                             <button>Tambah Data</button>
                         </a>
                         <br>
@@ -96,7 +97,7 @@ $dataEnrollMataKuliah = $enrollMataKuliahService->findAll();
                                                     <a href="./EnrollMataKuliahPageEditData.php?id=<?= $enroll->id ?>">
                                                         Edit
                                                     </a>
-                                                    <a href="./EnrollMataKuliahProsesData.php?act=delete&id=<?= $enroll->id ?>">
+                                                    <a href="./EnrollMataKuliahProsesData.php?act=delete2&id=<?= $enroll->id ?>">
                                                         Hapus
                                                     </a>
                                                 </div>
@@ -108,7 +109,7 @@ $dataEnrollMataKuliah = $enrollMataKuliahService->findAll();
                         </div>
                     <?php } else { ?>
                         <div id="div-error" role="alert">
-                            <span style="color: #5aa27c; font-weight: bolder">Ups! Data Enroll Mata Kuliah Tidak Ada</span>
+                            <span style="color: #5aa27c; font-weight: bolder">Ups! Anda belum ada mengambil mata kuliah</span>
                         </div>
                     <?php } ?>
                 </div>
@@ -121,6 +122,3 @@ $dataEnrollMataKuliah = $enrollMataKuliahService->findAll();
 </body>
 
 </html>
-
-
-

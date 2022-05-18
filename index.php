@@ -11,7 +11,20 @@
     <div class="row">
         <div class="rightcolumn">
             <div class="card">
-                <h2>Home</h2>
+
+                <?php 
+                    require_once './App.php';
+                    $admin = mustSectionAuthorizedInRoles('admin');    
+                    $mahasiswa = mustSectionAuthorizedInRoles('mahasiswa');    
+                    $dosen = mustSectionAuthorizedInRoles('dosen');
+                    $email = $sessionService->current()->email;    
+                    $email = substr($email, 0, strpos($email, '@'));
+               ?>
+
+                <?php if ($admin or $mahasiswa or $dosen) { ?>
+                    <p>Selamat Datang  <b> <?= $email ?></b> </p>
+                <?php } ?>
+
             </div>
         </div>
         <?php include('./Layouts/Sidebar.php') ?>

@@ -12,6 +12,7 @@ if ($act == 'create') {
     $idMhs = $_POST['id_mahasiswa'];
     $idMatkul = $_POST['id_mata_kuliah'];
     $semester = $_POST['semester'];
+    $tahunAjaran = $_POST['tahun_ajaran'];
     $nilai = $_POST['nilai'];
 
     try {
@@ -31,6 +32,7 @@ if ($act == 'create') {
         $req->idMahasiswa = $idMhs;
         $req->idMataKuliah = $idMatkul;
         $req->semester = $semester;
+        $req->tahunAjaran = $tahunAjaran;
         $req->nilai = $nilai;
 
         $enrollMataKuliahService->create($req);
@@ -67,6 +69,7 @@ if ($act == 'update') {
     $idMhs = $_POST['id_mahasiswa'];
     $idMatkul = $_POST['id_mata_kuliah'];
     $semester = $_POST['semester'];
+    $tahunAjaran = $_POST['tahun_ajaran'];
     $nilai = $_POST['nilai'];
 
     try {
@@ -75,6 +78,7 @@ if ($act == 'update') {
         $req->idMahasiswa = $idMhs;
         $req->idMataKuliah = $idMatkul;
         $req->semester = $semester;
+        $req->tahunAjaran = $tahunAjaran;
         $req->nilai = $nilai;
 
         $enrollMataKuliahService->update($req);

@@ -8,6 +8,7 @@ class EnrollMataKuliahEntity {
     public $idMataKuliah;
     public $semester;
     public $nilai;
+    public $tahunAjaran;
 }
 
 class EnrollMataKuliahEntityDetails {
@@ -19,6 +20,7 @@ class EnrollMataKuliahEntityDetails {
     public $mahasiswa;
     public $idMataKuliah;
     public $mataKuliah;
+    public $tahunAjaran;
 
     public function __construct(EnrollMataKuliahEntity $enroll, $mahasiswa, $mataKuliah) {
         if (is_null($mahasiswa)) {
@@ -38,6 +40,7 @@ class EnrollMataKuliahEntityDetails {
         }
 
         $this->id = $enroll->id;
+        $this->tahunAjaran = $enroll->tahunAjaran;
         $this->semester = $enroll->semester;
         $this->nilai = $enroll->nilai;
     }

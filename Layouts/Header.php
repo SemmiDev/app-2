@@ -12,6 +12,5 @@
       <a href="index.php" style="float:right;"> <?=$sessionService->current()->email ?></a>
     <?php } ?>
     
-
   </div>
 </div>

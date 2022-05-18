@@ -32,10 +32,10 @@ class MataKuliahRepository {
     public function updateSlot($id, $act) 
     {
         if ($act == 'add') {
-            $statement = $this->connection->prepare("UPDATE matakuliah SET slot = slot + 1 WHERE id_matakuliah = ?");
+            $statement = $this->connection->prepare("UPDATE matakuliah SET sisa_slot = sisa_slot + 1 WHERE id_matakuliah = ?");
             $statement->execute([$id]);
         } else if ($act == 'sub') {
-            $statement = $this->connection->prepare("UPDATE matakuliah SET slot = slot - 1 WHERE id_matakuliah = ?");
+            $statement = $this->connection->prepare("UPDATE matakuliah SET sisa_slot = sisa_slot - 1 WHERE id_matakuliah = ?");
             $statement->execute([$id]);
         }          
     }

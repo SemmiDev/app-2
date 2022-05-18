@@ -69,6 +69,7 @@ $dataEnrollMataKuliah = $enrollMataKuliahService->findAll();
                                         <th>Kode Mata Kuliah</th>
                                         <th>Nama Mata Kuliah</th>
                                         <th>Semester</th>
+                                        <th>Tahun Ajaran</th>
                                         <th>Nilai</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -83,6 +84,7 @@ $dataEnrollMataKuliah = $enrollMataKuliahService->findAll();
                                             <td><?= $enroll->mataKuliah->kode ?></td>
                                             <td><?= $enroll->mataKuliah->nama ?></td>
                                             <td><?= $enroll->semester ?></td>
+                                            <td><?= $enroll->tahunAjaran ?></td>
 
                                             <?php if (strlen($enroll->nilai) != 0) { ?>
                                                 <td><?= $enroll->nilai ?></td>
@@ -100,7 +102,6 @@ $dataEnrollMataKuliah = $enrollMataKuliahService->findAll();
                                                 </div>
                                             </td>
                                         </tr>
-                                        <?php $i++; ?>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

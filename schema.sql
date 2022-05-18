@@ -185,6 +185,7 @@ CREATE TABLE IF NOT EXISTS enroll_matakuliah (
     id_mahasiswa INT(11) DEFAULT NULL,
     id_matakuliah INT(11) DEFAULT NULL,
     semester INT(2) NOT NULL,
+    tahun_ajaran VARCHAR(10) NOT NULL,
     nilai VARCHAR(10) DEFAULT NULL,
     PRIMARY KEY (id_enroll_matakuliah),
     FOREIGN KEY (id_mahasiswa) REFERENCES mahasiswa(id_mahasiswa) ON DELETE SET NULL ON UPDATE CASCADE,

@@ -89,6 +89,17 @@ $dataMataKuliah = $mataKuliahRepository->findAll();
 
                             <tr>
                                 <td>
+                                    <label for="tahun_ajaran">
+                                        Tahun Ajaran
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" id="tahun_ajaran" name="tahun_ajaran" value="<?= $dataEnroll->tahunAjaran ?>" required>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
                                     <label for="nilai">
                                         Nilai
                                     </label>

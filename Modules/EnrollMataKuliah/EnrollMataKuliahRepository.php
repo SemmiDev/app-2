@@ -16,11 +16,12 @@ class EnrollMataKuliahRepository
     public function save(EnrollMataKuliahEntity $enroll): EnrollMataKuliahEntity
     {
 
-        $statement = $this->connection->prepare("INSERT INTO enroll_matakuliah(id_mahasiswa,id_matakuliah,semester,nilai) VALUES (?,?,?,?)");
+        $statement = $this->connection->prepare("INSERT INTO enroll_matakuliah(id_mahasiswa,id_matakuliah,semester, tahun_ajaran, nilai) VALUES (?,?,?,?,?)");
         $statement->execute([
             $enroll->idMahasiswa,
             $enroll->idMataKuliah,
             $enroll->semester,
+            $enroll->tahunAjaran,
             $enroll->nilai,
         ]);
         return $enroll;
@@ -28,11 +29,12 @@ class EnrollMataKuliahRepository
 
     public function update(EnrollMataKuliahEntity $enroll): EnrollMataKuliahEntity
     {
-        $statement = $this->connection->prepare("UPDATE enroll_matakuliah SET id_mahasiswa = ?, id_matakuliah = ?, semester = ?, nilai = ? WHERE id_enroll_matakuliah = ?");
+        $statement = $this->connection->prepare("UPDATE enroll_matakuliah SET id_mahasiswa = ?, id_matakuliah = ?, semester = ?, tahun_ajaran = ?, nilai = ? WHERE id_enroll_matakuliah = ?");
         $statement->execute([
             $enroll->idMahasiswa,
             $enroll->idMataKuliah,
             $enroll->semester,
+            $enroll->tahunAjaran,
             $enroll->nilai,
             $enroll->id,
         ]);
@@ -50,6 +52,7 @@ class EnrollMataKuliahRepository
             $enroll->idMahasiswa = $row['id_mahasiswa'];
             $enroll->idMataKuliah = $row['id_matakuliah'];
             $enroll->semester = $row['semester'];
+            $enroll->tahunAjaran = $row['tahun_ajaran'];
             $enroll->nilai = $row['nilai'];
             return $enroll;
         }, $result);
@@ -67,6 +70,7 @@ class EnrollMataKuliahRepository
                 $enroll->idMahasiswa = $row['id_mahasiswa'];
                 $enroll->idMataKuliah = $row['id_matakuliah'];
                 $enroll->semester = $row['semester'];
+                $enroll->tahunAjaran = $row['tahun_ajaran'];
                 $enroll->nilai = $row['nilai'];
                 return $enroll;
             } else {

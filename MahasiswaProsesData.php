@@ -2,7 +2,6 @@
 
 namespace App\MahasiswaProses;
 
-use Config\Database;
 use Modules\Mahasiswa\Entity\MahasiswaEntity;
 
 require_once './App.php';
@@ -40,6 +39,57 @@ function generateNIM($angkatan, $jurusanId, $jalurMasuk) {
     $noMhs = $noMhs < 1000 ? str_repeat('0', 4 - strlen($noMhs)) . $noMhs : $noMhs;
 
     return $angkatan . $jurusan . $jalurMasuk . $noMhs;
+}
+
+if ($act == 'csv') {
+    $handle = fopen($_FILES['datamahasiswacsv']['tmp_name'], "r");
+    $headers = fgetcsv($handle, 1000, ",");
+    $result = [];
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        $m = new MahasiswaEntity();
+        $m->namaDepan = $data[0];
+        $m->namaBelakang = $data[1];
+        $m->jalurMasuk = $data[2];
+        $m->angkatan = $data[3];
+        $m->jenisKelamin = $data[4];
+        $m->agama = $data[5];
+        $m->jenjang = $data[6];
+        $m->tanggalLahir = $data[7];
+        $m->noHP = $data[8];
+        $m->alamat = $data[9];
+        $m->status = $data[10];
+        $m->totalSKS = $data[11];
+        $m->semester = $data[12];
+        $m->idJurusan = $data[13];
+        $m->idProdi = null;
+        
+        if ($data[14] == "" or is_null($data[14])) {
+            $m->idDosenPA = null;
+        }else {
+            $m->idDosenPA = $data[14];
+        }
+        
+        $m->nim = generateNIM($m->angkatan, $m->idJurusan, $m->jalurMasuk);
+        $m->email = generateEmail($m->namaDepan, $m->namaBelakang, $m->nim, 'student');
+        
+        try {
+            $mahasiswaService->create($m);
+            $msg = "Mahasiswa berhasil ditambahkan";
+            setcookie('success', $msg, time() + 5);
+            header('Location: Mahasiswa.php');
+        } catch (\Exception $exception) {
+            if (strpos($exception->getMessage(), 'There is no active transaction') !== false) {
+                setcookie('success', $msg, time() + 5);
+                header('Location: Mahasiswa.php');
+            } else {
+                $msg = "Mahasiswa gagal ditambahkan $exception";
+                setcookie('error', $msg, time() + 5);
+                header('Location: Mahasiswa.php');
+            }
+        }
+    }
+
+    fclose($handle);
 }
 
 if ($act == 'create') {

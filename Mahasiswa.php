@@ -67,7 +67,7 @@ if (isset($_GET['page_id'])) {
                         <a href="./MahasiswaPageTambahData.php">
                             <button>Tambah Data</button>
                         </a>
-                        <a href="./MahasiswaPageUpload.php">
+                        <a href="./csv.php">
                             <button>Upload File CSV</button>
                         </a><br>
                         <br>
